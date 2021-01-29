@@ -23,11 +23,15 @@ This project is final capstone of the Udacity Azure ML Engineering Nanodegree. I
 
 ## **Workspace and Architecture** 
 
-Workspace forms the top level of resource of Azure Machine Learning.  The workspace is use to manage data, compute resources, code, models, and other artifacts related to machine learning workloads.![workspace](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/ws.png)
+Workspace forms the top level of resource of Azure Machine Learning.  The workspace is use to manage data, compute resources, code, models, and other artifacts related to machine learning workloads.
+
+![workspace](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/ws.png)
 
 The images below indicate the architectural diagram and the overall workflow of the project:
 
 ![architecture](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/arch.png)
+
+**The work flow from choosen dataset to testing the model endpoint**
 
 ![workflow](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/wf.png)
 
@@ -108,10 +112,12 @@ The ScriptRunConfig method was used for configuring the HyperDrive  training job
 In using the ScriptRunConfig, all environment-related configurations have to be encapsulated in the Environment object that gets passed into the environment parameter of the ScriptRunConfig constructor. 
 In order to configure this training job, I provided a custom Environment through a yml file called conda_dependencies.yml, which contains all the dependencies required for my training script (train.py). 
 
-** HyperDrive Run Details**
+**HyperDrive Run Details**
 
 ![run details1](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r9.png)
+
 ![run details2](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r10.png)
+
 ![run details2](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r11.png)
 
 ### **HyperDrive Tuning Results**
@@ -124,6 +130,7 @@ The best Accuracy for the HyperDrive model was 72.7 %  with the following best s
 The images below show the hyperdrive model training results:
 
 ![training accuracies](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r12.png)
+
 ![best model](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r13.png)
 
 
