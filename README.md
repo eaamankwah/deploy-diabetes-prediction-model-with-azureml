@@ -19,7 +19,9 @@
 
 ## **Overview**
 
-This project is final capstone of the Udacity Azure ML Engineering Nanodegree. In this project, I built and optimized Azure to configure a cloud-based machine learning production model. I deployed and tested the best model through an endpoint of the deployed model. 
+This project is final capstone of the Udacity Azure ML Engineering Nanodegree. The objective of the project was to train a machine learning model, deploy and consume the best model endpoint. I used Azure Machine Learning SDK for Python to set up experiments to run the machine learning workflows. The training of the dataset was accomplished in two ways:
+*AutoML runs  and 
+*HyperDrive optimization of model hyperparameters of a Scikit-learn Logistic Regression.
 
 ## **Workspace and Architecture** 
 
@@ -69,6 +71,8 @@ The experiment timeout was set to control the use of the cloud resources. A maxi
 
 The screenshots below show the run details and the best model in terms of accuracy:
 
+The different models trained and their performance indicated that the VotingEnsemble was the best model in terms of accuracy. This model aggregated the strength of several models to achieve the highest accuracy
+
 ![run details ](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r2.png)
 
 ![dataset](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r3.png)
@@ -82,7 +86,7 @@ The models and it’s weights that the VotingEnsemble used is listed below:
 
 'ensemble_weights': '[0.07142857142857142, 0.07142857142857142, 0.07142857142857142, 0.07142857142857142, 0.14285714285714285, 0.07142857142857142, 0.07142857142857142, 0.07142857142857142, 0.07142857142857142, 0.07142857142857142, 0.07142857142857142, 0.14285714285714285]'
 
-The screenshots below indicate detatils of the best selected model listed in Azure ML Studio:
+The two screenshots below indicate details of the best selected model and corresponding metrics such as accuracy, AUC_weighted, precision and recall as listed in Azure ML Studio :
 
 ![best model details ](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r4.png)
 
@@ -90,13 +94,19 @@ The screenshots below indicate detatils of the best selected model listed in Azu
 
 **Model Best run ID**
 
+The best model indicated by its run ID, accuracy and weights produced by the SDK is shown below.
+
 ![best run id](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r6.png)
+
+Most of the run the weights appears the same for each feature. This needs further investigation for future work since other runs provided entirely different weights:
 
 **Best AutoML Model Registered**
 
 ![best automl model registered](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r7.png)
 
 ## **HyperDrive Hyperparameter Tuning**
+
+In the second experiment, Logistic Regression from SciKit-Learn was used because the dataset has binary class and well suited for hyperparameter Tuning. 
 
 The HyperDrive configuration is shown in the image below:
 
@@ -131,8 +141,11 @@ The images below show the hyperdrive model training results:
 
 ![training accuracies](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r12.png)
 
+The primary metric appears to have a better result with increasing max_iter parameter than the –C tuning parameter.
+
 ![best model](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r13.png)
 
+In future work, more tuning for a larger range of parameters would be needed to improve the accuracy metric.
 
 **Best HyperDrive Model Registered**
 
@@ -164,11 +177,12 @@ The following screenshots show the status of the automl deployment described as 
 ## **Deployed Endpoint Testing**
 
 The deployed model was tested in two ways:
-* A REST endpoint file (endpoint.py) was supplied with a scoring url generated from the deployment, and was used to call the service by passing two data points as json predictions as shown below.
 
-* Two random sample data points were passed to compared the actual values and predicted values and the results are shown below.
+* During the first test, a REST endpoint file (endpoint.py) was supplied with a scoring url generated from the deployment, and was used to call the service by passing two data points as json predictions as shown below.
 
 ![testing](https://github.com/eaamankwah/Deploy-Diabetes-model-with-AzureML/blob/main/screenshots/r17.png)
+
+*During the second test, two random samples were passed to the created web service REST API endpoint through a json request. The response received from the endpoint predictions returned by the model were consistent with the true values. This is also shown in the screenshot above.
 
 **Logs of the Web Service**
 The screenshot below depicts the logs generated from the deployed web service:
@@ -183,9 +197,12 @@ The screenshot below depicts the logs generated from the deployed web service:
 
 In future, the following areas could be improved:
 
+*Deploy the model with the ONNX format.
+
 * More data should be collected to improve the accuracy of the model as the algorithms can learn more from more dataset.
 
 * Different target metrics could be pursued to broaden the range of model evaluation choices. The range of range of the hyperparameters could be increased to see if further improvements could be achieved.
+
 * Automate efficient hyperparameter tuning by using Azure Machine Learning HyperDrive package could be used for comparison purposes . Different combination of  hyperparameter values  --C and --Max_iter could be tried. The C value could be selected by using the Uniform or Choice functions to define the search space. The parameter search space could be defined as discrete or continuous, and a sampling method over the search space as grid, or Bayesian. New HyperDrive runs with difference estimators including the best performing estimator VotingEnsemble could be tried to improve the accuracy score. 
 
 * It is also recommended to increase cross validation in search of a better model accuracy.
@@ -200,7 +217,7 @@ In future, the following areas could be improved:
 
 The link below demonstrates the main processes undertaken in this project
 
-https://drive.google.com/file/d/1QQtM7B1swHT6BxHUmWCCXQqxqKPl0ojQ/view?usp=sharing
+https://drive.google.com/file/d/1ZL7KWld-sarxczFCkxcvB7vB2mPkHprY/view?usp=sharing
 
 ## **References** 
 
